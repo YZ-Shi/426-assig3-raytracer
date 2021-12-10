@@ -1,0 +1,215 @@
+<html>
+<head>
+    <title> COS426 Assignment 3 Rendering &mdash; Ray Tracer &mdash; Writeup</title>
+    <link href="css/style.css" type="text/css" rel="stylesheet"/>
+</head>
+
+<body>
+<script src="js/student.js"> </script>
+<script src="coursejs/writeup.js"> </script>
+<div class="top">
+<div class="main_div">
+
+<h1> <div class=assignment>COS426 Assignment 3</div> Ray Tracer &mdash; Writeup</h1>
+<h2>Switch to: <a href='index.html'>Interactive Editor</a></h2>
+<br>
+<div id='collaboration'>
+    <div>
+    Collaboration Statement:
+    </div>
+        <br>
+    <div>
+        <em>
+            Under penalty of academic dishonesty (as outlined in RRR)
+            my digital signature below verifies that the following is true:
+            <ul>
+                <p>
+                    That all images in this writeup were generated directly by my solution code
+                    or provided by the course staff (exception: art contest submissions
+                    may pass through intermediary software like GIMP)
+                </p>
+                <p>
+                    That no other student has viewed my writeup explanations
+                    or my writeup images
+                </p>
+                <p>
+                    That my solution code is my own work; particularly that
+                    my solution was not copied from any other
+                    student's solution code, and that no other student
+                    copied their solution directly code from me
+                </p>
+                <p>
+                    That I did not discuss assignment specifics or view
+                    the solution code of any other student besides that of my (optional) partner
+                </p>
+                <p>
+                    That I have followed all other course collaboration
+                    and course plagiarism policies as written on the course website.
+                </p>
+            </ul>
+        </em>
+        <p>
+            <strong>
+                Yunzi Shi  (yunzis)
+            </strong>
+        </p>
+
+        <p>
+            Collaborated with: N/A
+        </p>
+        <p>
+            I'd like to use 1 late day for this assignment.
+        </p>
+        <br>
+    </div>
+</div>
+<div class='selectable'>
+<h2 id='student'></h2>
+
+<ul>
+<li>(1.0) <a href='#TraceRay'>Trace Ray and Calculate Color</a></li>
+<li>(2.0) <a href='#Triangle'>Triangle</a></li>
+<li>(2.0) <a href='#Sphere'>Sphere</a></li>
+<li>(2.5) <a href='#Box'>Box</a></li>
+<li>(2.0) <a href='#Cylinder'>Cylinder</a></li>
+<li>(3.0) <a href='#Cone'>Cone</a></li>
+<li>(1.0) <a href='#Shadows'>Shadows</a></li>
+<li>(3.0) <a href='#Soft+shadows'>Soft shadows</a></li>
+<li>(2.0) <a href='#Transmission'>Transmission</a></li>
+<li>(1.0) <a href='#Checkerboard'>Checkerboard</a></li>
+<li>(1.5) <a href='#Phong+material'>Phong material</a></li>
+<li>(1.5) <a href='#Special+material'>Special material</a></li>
+<li>(1.0) <a href='#Scene'>Custom Scene</a></li>
+<li>(1.0) <a href='#Art+Contest'>Art Contest</a></li>
+</ul></div>
+
+<p><hr><p><a name='Trace Ray and Calculate Color'></a><h2>TraceRay</h2><p><hr><p>
+<p>For the first part of the assignment, I followed the provided
+instructions to complete the <code>traceRay</code> and <code>calculateColor</code>
+functions.
+<img src='results/trace_ray.jpg'>
+<img src='results/calculate_color.jpg'>
+</p>
+
+<p><hr><p><a name='Triangle'></a><h2>Triangle</h2><p><hr><p>
+  <p>I followed the provided instructions on the lecture and precept slides to complete the
+    <code>findIntersectionWithTriangle</code> function. I first find the normal
+    of the plane where the triangle lies. I then calculate geometrically whether the intersection
+    point lies inside the triangle. Finally, return the distance from the light
+    to the intersection point, otherwise return INFINITY.<br>
+<img src='results/triangle.jpg'>
+</p>
+
+<p><hr><p><a name='Sphere'></a><h2>Sphere</h2><p><hr><p>
+  <p>I followed the provided instructions on the lecture and precept slides to complete the
+    <code>findIntersectionWithSphere</code> function. I first find the two intersection
+    points (if exist). I then determine which is the closest point of intersection out of the sphere.
+    Finally, return the distance from the light to the intersection point, otherwise return INFINITY.<br>
+  <img src='results/sphere.jpg'>
+  </p>
+
+<p><hr><p><a name='Box'></a><h2>Box</h2><p><hr><p>
+  <p>I followed the provided instructions on the lecture and precept slides to complete the
+    <code>findIntersectionWithBox</code> function. I iterate through all six faces of the
+    box, keeping track of the closest intersection point. If the ray intersects with
+    the face, I check whether the current intersection point is closer and update
+    accordingly.<br>
+  <img src='results/box.jpg'>
+  </p>
+
+<p><hr><p><a name='Cylinder'></a><h2>Cylinder</h2><p><hr><p>
+  <p>I followed the provided instructions on the lecture and precept slides to complete the
+    <code>getIntersectOpenCylinder</code> and <code>getIntersectDisc</code>functions.</p>
+    <p>For intersection with open cylinder, I first find the two intersection points (if exist).
+    I then select the closer of the two.
+    Then I determine whether they are valid by checking if they fall within the height
+    of the cylinder, and return the intersection if valid. </p>
+    <p>For intersection with disk, I first find the intersection point with the plane
+    in which the disk lies. Then I determine if the intersection point falls within
+    the plane by comparing the distance between the intersection point to the center
+    with the radius of the disk.</p>
+  <img src='results/cylinder.jpg'>
+  </p>
+
+<p><hr><p><a name='Cone'></a><h2>Cone</h2><p><hr><p>
+  <p>I followed the provided instructions on the lecture and precept slides to complete the
+    <code>getIntersectOpenCone</code> function. For intersection with open cylinder,
+    I first find the two intersection points (if exist) and select the closer of the two.
+    Then I determine whether they are valid by checking if they fall within the height
+    of the cone, and return the intersection if valid. </p>
+  <img src='results/cone.jpg'>
+  </p>
+
+<p><hr><p><a name='Shadows'></a><h2>Shadows</h2><p><hr><p>
+  <p>I followed the provided instructions on the lecture and precept slides to complete the
+    <code>pointInShadow</code> function. I check whether the ray from the intersection
+    point to the light is blocked by any object by comparing the distance with the length of
+    lightVec. If the distance travelled by the ray is shorter, return true for
+    the point is in shadow.</p>
+  <img src='results/shadows.jpg'>
+  </p>
+
+<p><hr><p><a name='Soft+shadows'></a><h2>Soft shadows</h2><p><hr><p>
+  <p>I had some troubles implementing soft shadows and neither of my solutions
+  seem entirely right, and I kept my code for both. In my first implementation,
+  I was getting concentric circles instead of a gradient. In the second, I don't
+  really understand why the sampling suddenly became discrete. </p>
+  <img src='results/soft_shadows_concentric.jpg'>
+  <img src='results/soft_shadows_new.jpg'>
+  </p>
+
+<p><hr><p><a name='Transmission'></a><h2>Transmission</h2><p><hr><p>
+  <p>I followed the provided instructions on the lecture and precept slides to complete the
+    <code>calcReflectionVector</code> function. This is implemented according to
+    Snell's Law. </p>
+  <img src='results/transmission.jpg'>
+  </p>
+
+<p><hr><p><a name='Checkerboard'></a><h2>Checkerboard</h2><p><hr><p>
+  <p>I followed the provided instructions on the lecture and precept slides to complete the
+    <code>calculateSpecialDiffuseColor</code> function. I first divide the 3d space
+  in the scene into cubes of black and white based on their spatial coordinates. Then I
+return the color blended with the original color of the material.</p>
+  <img src='results/checkerboard1.jpg'>
+  <img src='results/checkerboard2.jpg'>
+  </p>
+
+<p><hr><p><a name='Phong+material'></a><h2>Phong material</h2><p><hr><p>
+  <p>I followed the provided instructions on the lecture and precept slides to complete the
+    <code>getLightContribution</code> function. This is implemented according to
+    the specular reflection model. </p>
+  <img src='results/transmission.jpg'>
+  </p>
+
+<p><hr><p><a name='Special+material'></a><h2>Special material</h2><p><hr><p>
+  <p>I followed the provided instructions on the lecture and precept slides to complete the
+    <code>calculateSpecialDiffuseColor</code> function. I implemented the Perlin noise
+    adapted from /en.wikipedia.org/wiki/Perlin_noise. The adaptation was mainly implementing
+    a gradient function which calculates the "random" but determined gradient vector for
+    each control point.</p>
+  <img src='results/special.jpg'>
+  </p>
+
+<p><hr><p><a name='Scene'></a><h2>Custom Scene</h2><p><hr><p>
+  <p>A cyberpunk cityscape with skyscrapers lit up by neon-colored lights.
+    This is implemented with a series of boxes and lights of a particular color spectrum.
+    The first scene uses matte boxes and the second scene uses glass boxes.</p>
+  <img src='results/art-yunzis-cyberpunk1.jpg'>
+  <img src='results/art-yunzis-cyberpunk2.jpg'>
+
+
+<p><hr><p><a name='Art+Contest'></a><h2>Art Contest</h2><p><hr><p>
+  <p>I was interested in simulating a scene of a cyberpunk cityscape with dark skyscrapers,
+  neon-colored lights, and glass rail transportation in between the buildings. I made two
+  different versions and controlled the color atmosphere by 1)the color of the matt boxes
+  and the lights 2) the glass boxes and the lights. </p>
+  <img src='results/art-yunzis-cyberpunk1.jpg'>
+  <img src='results/art-yunzis-cyberpunk2.jpg'>
+  <p>Here is my reference:</p>
+  <img src='results/reference.jpg'>
+  </p>
+
+</div>
+</div>
+</body>
+</html>
